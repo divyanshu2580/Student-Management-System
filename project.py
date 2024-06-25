@@ -14,7 +14,6 @@ password = os.getenv("PASSWORD")
 adminPassword = os.getenv("ADMIN_PASSWORD")
 adminUsername = os.getenv("ADMIN_USERNAME")
 
-
 connection_params = {
     'host': 'localhost',  
     'user': 'root',       
