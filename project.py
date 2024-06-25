@@ -5,12 +5,20 @@ from tkinter import simpledialog , messagebox
 import pymysql
 from PIL import Image , ImageTk
 import hashlib
+import os
+from dotenv import load_dotenv, dotenv_values
+
+load_dotenv()
+
+password = os.getenv("PASSWORD")
+adminPassword = os.getenv("ADMIN_PASSWORD")
+adminUsername = os.getenv("ADMIN_USERNAME")
 
 
 connection_params = {
     'host': 'localhost',  
     'user': 'root',       
-    'password': 'Di@260802', 
+    'password': password, 
     'database': 'eduschema', 
 }
 try:
@@ -592,7 +600,7 @@ try:
     def admin_login():
         admin_username= entry_username_admin.get()
         admin_password= entry_password_admin.get()
-        if admin_username == "Divyanshu" and admin_password == "divyanshu":
+        if admin_username == adminUsername and admin_password == adminPassword:
                 messagebox.showinfo("Admin Login Success",f"Welcome {admin_username}")
                 entry_username_admin.delete(0, tk.END)
                 entry_password_admin.delete(0, tk.END)
@@ -618,7 +626,6 @@ try:
         entry_username.delete(0,tk.END)
         entry_password.delete(0,tk.END)
 
-    
     def clear7():
         entry_usernameadm.delete(0,tk.END)
         entry_passwordadm.delete(0,tk.END)
@@ -659,7 +666,6 @@ try:
 
     nav_frame = tk.Frame(home_frame, bg="gray26")
     nav_frame.pack(side="top", fill="x")
-
 
     tk.Button(nav_frame, text='Home', font=('Times New Roman', 13), bg='dim gray', border=4, width=15, fg='white', command=lambda: show_frame(home_frame)).pack(side="left", padx=0, pady=5)
 
@@ -851,7 +857,7 @@ try:
 
     tk.Button(grades_nav_frame, text='Grades', font=('Times New Roman', 13), bg='dim gray', border=4, width=15, fg='white', command=lambda: show_frame(grades_frame)).pack(side="left", padx=0, pady=5)
 
-    tk.Button(grades_nav_frame, text='Admin', font=('Times New Roman', 13), bg='dim gray', border=4, width=15, fg='white', command=lambda: show_frame(admin_frame)).pack(side="left", padx=0, pady=5)
+    tk.Button(grades_nav_frame, text='Admin', font=('Times New Roman', 13), bg='dim gray', border=4, width=15, fg='white', command=lambda: show_frame(admin_login_frame)).pack(side="left", padx=0, pady=5)
 
     tk.Button(grades_nav_frame, text='Clear', font=('Times New Roman', 13), bg='dim gray', border=4, width=17, fg='white', command=clear4).pack(side="left", padx=0, pady=5)
 
@@ -998,7 +1004,7 @@ try:
 
     label_passwordadm = tk.Label(signup_center_frame, text="Create your Password:",bg='gray26',fg='white',font=('Times New Roman', 20))
     label_passwordadm.pack(pady=10)
-    entry_passwordadm = tk.Entry(signup_center_frame, bg='dim gray',font=('Times New Roman', 15))  # Show * for password
+    entry_passwordadm = tk.Entry(signup_center_frame, bg='dim gray',font=('Times New Roman', 15) ,show="*")  # Show * for password
     entry_passwordadm.pack(pady=5)
 
     login_page_label = tk.Label(signup_center_frame, text="already signed up ??", font=('Times New Roman', 10 ,"underline"), bg="gray26" ,fg="steel blue")
